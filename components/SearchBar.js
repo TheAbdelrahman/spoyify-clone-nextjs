@@ -4,12 +4,12 @@ import { useEffect, useState } from 'react';
 import useSpotify from '@/hooks/useSpotify';
 import { useSession } from 'next-auth/react';
 
-const Search = () => {
+const SearchBar = () => {
 	const spotifyAPI = useSpotify();
 	const { data: session, status } = useSession();
 
 	const [result, setResult] = useState([]);
-	const [searchQuery, setSearchQuery] = useState('');
+	const [searchQuery, setSearchQuery] = useState(null);
 
 	const getTracks = (newSearchQuery) => {
 		setSearchQuery(newSearchQuery);
@@ -33,15 +33,15 @@ const Search = () => {
 	};
 
 	return (
-		<div className="flex flex-col w-full items-center h-max justify-center top-0">
+		<div className="flex flex-col bg-black w-full h-full items-center justify-center top-0">
 			<input
-				className=" text-center bg-transparent p-1  text-white outline-none w-full"
+				className=" text-center bg-transparent p-1 text-white h-16 text-xl outline-none w-full"
 				type="text"
 				placeholder="Search"
 				value={searchQuery}
 				onChange={(event) => getTracks(event.target.value)}
 			/>
-			<div className="flex flex-wrap empty:hidden p-20 pb-32 h-screen scrollbar-hide overflow-y-scroll space-x-5 space-y-5">
+			<div className="flex flex-wrap p-20 pb-32 h-screen scrollbar-hide overflow-y-scroll space-x-5 space-y-5">
 				{result.map((track) => (
 					<div
 						key={track.uri}
@@ -57,7 +57,7 @@ const Search = () => {
 							<p className="break-all max-w-60 text-xs text-gray-500">
 								{track.artist}
 							</p>
-							{console.log(track)}
+							{/*console.log(track)*/}
 						</div>
 					</div>
 				))}
@@ -66,4 +66,4 @@ const Search = () => {
 	);
 };
 
-export default Search;
+export default SearchBar;

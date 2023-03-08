@@ -1,22 +1,24 @@
-/* eslint-disable @next/next/no-img-element */
-import { ChevronDoubleRightIcon } from '@heroicons/react/20/solid';
-import { getProviders, signIn } from 'next-auth/react';
 import Image from 'next/image';
+import { getProviders, signIn } from 'next-auth/react';
+import Link from 'next/link';
 
 function Login({ providers }) {
 	return (
-		<div className="flex flex-col items-center bg-black min-h-screen w-full justify-center">
-			<img
-				className="w-52 mb-5"
-				src="https://links.papareact.com/9xl"
-				alt="spotify logo"
-			/>
+		<div>
 			{Object.values(providers).map((provider) => (
-				<div key={provider.name}>
-					<button
-						className="bg-[#18D860] text-white p-5 rounded-full "
-						onClick={() => signIn(provider.id, { callbackUrl: '/' })}
-					>
+				<div
+					onClick={() => signIn(provider.id, { callbackUrl: '/' })}
+					key={provider.name}
+					className="flex flex-col items-center bg-black min-h-screen w-full justify-center"
+				>
+					<Image
+						width={100}
+						height={100}
+						className="cursor-pointer "
+						src="/Spotify_Icon_RGB_Green.png"
+						alt="spotify logo"
+					/>
+					<button className=" h-4 text-white p-5 rounded-full">
 						Login With {provider.name}
 					</button>
 				</div>

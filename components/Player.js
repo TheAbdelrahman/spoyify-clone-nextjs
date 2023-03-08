@@ -27,18 +27,10 @@ const Player = () => {
 	const songInfo = useSongInfo(currentTrackId);
 	const [volume, setVolume] = useState(50);
 
-	useEffect(() => {
-		if (spotifyApi.getAccessToken() && !currentTrackId) {
-			fetchCurrentSong();
-			setVolume(50);
-		}
-	}, [currentTrackIdState, spotifyApi, session]);
-
-	const fetchCurrentSong = () => {
+	const fetchCurrentSong = async () => {
 		if (!songInfo) {
 			spotifyApi.getMyCurrentPlayingTrack().then((data) => {
 				setCurrentTrackId(data.body?.item?.id);
-				console.log(data);
 				spotifyApi.getMyCurrentPlaybackState().then((data) => {
 					setIsPlaying(data.body?.is_playing);
 				});
@@ -46,9 +38,19 @@ const Player = () => {
 		}
 	};
 
+	useEffect(() => {
+		if (spotifyApi.getAccessToken() && !currentTrackId) {
+			fetchCurrentSong();
+			setVolume(50);
+		}
+
+		//fetchSongInfo();
+	}, [currentTrackId, spotifyApi, session]);
+
 	const handlePlayPause = () => {
-		spotifyApi.getMyCurrentPlaybackState().then((data) => {
+		spotifyApi.getMyCurrentPlayingTrack().then((data) => {
 			if (data.body?.is_playing) {
+				//todo : remove player with a dsiclaimer 'issue reasons : api refuses' and emplement other playlist options
 				spotifyApi.pause();
 				setIsPlaying(false);
 			} else {
@@ -59,7 +61,7 @@ const Player = () => {
 	};
 
 	return (
-		<div className="h-24 bg-[#1a1b1d] text-white grid grid-cols-3 text-sm md:text-base px-2 md:px-8">
+		<div className="h-16 bg-[#1a1b1d] text-white grid grid-cols-3 text-sm md:text-base px-2 md:px-8">
 			<div className="flex items-center space-x-4">
 				<img
 					className="md:inline h-12 w-12"

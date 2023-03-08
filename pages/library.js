@@ -1,55 +1,99 @@
 /* eslint-disable @next/next/no-img-element */
-import {
-	HomeIcon,
-	MagnifyingGlassIcon,
-	BuildingLibraryIcon,
-	PlusCircleIcon,
-	HeartIcon,
-	RssIcon,
-} from '@heroicons/react/24/outline';
+
 import { signOut, useSession } from 'next-auth/react';
 import { useEffect, useState } from 'react';
 import useSpotify from '@/hooks/useSpotify';
-import { useRecoilState } from 'recoil';
-import { playListIdState } from '@/atoms/playlistAtom';
+import DropList from '../components/DropList';
+import Sidebar from '@/components/Sidebar';
+import Playlist from '@/components/Cards/Playlist';
+import useUserPlaylists from '@/hooks/usePlaylists';
 
 const Library = () => {
 	const spotifyAPI = useSpotify();
 
 	const { data: session, status } = useSession();
-	const [playlists, setPlaylists] = useState([]);
-	const [playlistId, setPlaylistId] = useRecoilState(playListIdState);
+	const userPlaylists = useUserPlaylists();
+	const [likedTracks, setLikedTracks] = useState([]);
+	const [playlistId, setPlaylistId] = useState([]);
 
 	useEffect(() => {
 		if (spotifyAPI.getAccessToken()) {
-			spotifyAPI.getUserPlaylists().then((data) => {
-				setPlaylists(data.body.items);
+			spotifyAPI.getMySavedTracks().then((data) => {
+				setLikedTracks(data.body.items);
 			});
 		}
 	}, [session, spotifyAPI]);
 
-	console.log(playlists);
+	console.log(likedTracks);
 
 	return (
-		<div className="flex flex-wrap empty:hidden p-20 pb-32 h-screen scrollbar-hide overflow-y-scroll space-x-5 space-y-5">
-			{playlists.map((playlist) => (
-				<div
-					className="flex-col justify-center items-center space-y-2 w-40 h-max"
-					key={playlist.id}
-				>
-					<img
-						src={playlist.images[0].url}
-						alt="albume image"
-						className="w-32 h-32 rounded-lg"
-					/>
-					<p
-						onClick={() => setPlaylistId(playlist.id)}
-						className="hover:text-white cursor-pointer"
-					>
-						{playlist.name}
-					</p>
-				</div>
-			))}
+		<div className="flex max-h-screen w-screen overflow-hidden bg-[#121212] text-white ">
+			<din className="m-w-1/5">
+				<Sidebar />
+			</din>
+
+			<div className="flex-col">
+				<header>
+					<div className="flex justify-end items-center pr-8 h-20 bg-opacity-30 bg-black w-full">
+						<DropList />
+					</div>
+				</header>
+				<main className="w-full h-screen flex">
+					<div className="flex-col grow overflow-scroll scrollbar-hide p-10">
+						<h1 className="mb-5">Playlists</h1>
+
+						<div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-10 place-items-center place-content-center pb-28">
+							<div className="flex-col col-span-2 rounded-lg p-4 bg-gradient-to-br from-[#0d72ea] to-[#3d91f4]  h-full w-full">
+								<p className="text-lg">Liked Songs</p>
+								<p>Liked Songs count : {likedTracks.length}</p>
+
+								<div className="h-full w-full">
+									<div className="overflow-scroll scrollbar-hide h-full ">
+										{likedTracks.map((item) => (
+											<div key={item.track.external_ids.isrc}>
+												<span className="mr-3">{item.track.name} •</span>
+												<span key={item.track.external_ids.isrc}>
+													{item.track.artists[0].name}
+												</span>
+											</div>
+										))}
+									</div>
+								</div>
+							</div>
+							<div className="flex-col justify-center items-center rounded-lg bg-[#1a1a1a] ease-in-out duration-300 hover:bg-[#292929] p-4 space-y-2 h-full w-full">
+								<div className="bg-[#056952] h-2/3 flex items-center justify-center">
+									<svg
+										xmlns="http://www.w3.org/2000/svg"
+										viewBox="0 0 24 24"
+										fill="#1ed760"
+										className="w-1/3 h-2/3"
+									>
+										<path
+											fillRule="evenodd"
+											d="M6.32 2.577a49.255 49.255 0 0111.36 0c1.497.174 2.57 1.46 2.57 2.93V21a.75.75 0 01-1.085.67L12 18.089l-7.165 3.583A.75.75 0 013.75 21V5.507c0-1.47 1.073-2.756 2.57-2.93z"
+											clipRule="evenodd"
+										/>
+									</svg>
+								</div>
+
+								<p className="cursor-pointer">Your Episodes</p>
+								<p className="text-gray-500 text-xs cursor-pointer">
+									9 Episodes
+								</p>
+							</div>
+							{userPlaylists?.map((playlist) => (
+								<div key={playlist.id} className="h-full w-full ">
+									<Playlist
+										href={'/viewPlaylist'}
+										onClick={() => setPlaylistId(playlist.id)}
+										content={playlist}
+									/>
+								</div>
+							))}
+						</div>
+					</div>
+				</main>
+			</div>
 		</div>
 	);
 };

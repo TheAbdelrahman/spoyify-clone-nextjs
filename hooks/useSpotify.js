@@ -1,9 +1,9 @@
 import SpotifyAPI from '@/lib/Spotify';
-import { useSession } from 'next-auth/react';
+import { signIn, useSession } from 'next-auth/react';
 import { useEffect } from 'react';
 
 const useSpotify = () => {
-	const { data: session, status } = useSession();
+	const { data: session } = useSession();
 
 	useEffect(() => {
 		if (session) {
