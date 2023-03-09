@@ -13,23 +13,25 @@ import { useRecoilState } from 'recoil';
 import { playListIdState } from '@/atoms/playlistAtom';
 import Link from 'next/link';
 import CreateList from './Modals/CreateList';
+import useUserPlaylists from '@/hooks/usePlaylists';
 
 const Sidebar = () => {
 	const spotifyAPI = useSpotify();
 
 	const { data: session, status } = useSession();
-	const [playlists, setPlaylists] = useState([]);
+	//const [playlists, setPlaylists] = useState([]);
+	const userPlaylists = useUserPlaylists();
 	const [playlistId, setPlaylistId] = useRecoilState(playListIdState);
 
-	useEffect(() => {
+	/*useEffect(() => {
 		if (spotifyAPI.getAccessToken()) {
 			spotifyAPI.getUserPlaylists().then((data) => {
 				setPlaylists(data.body.items);
 			});
 		}
-	}, [session, spotifyAPI]);
+	},[]);
 
-	//console.log(playlistId);
+	console.log(playlistId);*/
 
 	return (
 		<div className="flex-col grow p-5 border-r border-gray-900 bg-black h-screen sm:w-[12rem] lg:w-[15rem] min-w-max hidden md:inline-flex scrollbar-hide text-gray-500 text-xs lg:text-base ">
@@ -59,7 +61,7 @@ const Sidebar = () => {
 				<hr className=" border-t-[0.1px] border-gray-900 " />
 			</div>
 			<div className="flex-col overflow-scroll scrollbar-hide">
-				{playlists.map((playlist) => (
+				{userPlaylists?.map((playlist) => (
 					<Link key={playlist.id} href="/viewPlaylist">
 						<p
 							onClick={() => setPlaylistId(playlist.id)}

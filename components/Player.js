@@ -40,7 +40,7 @@ const Player = () => {
 
 	useEffect(() => {
 		if (spotifyApi.getAccessToken() && !currentTrackId) {
-			fetchCurrentSong();
+			setInterval(fetchCurrentSong(), 300000);
 			setVolume(50);
 		}
 

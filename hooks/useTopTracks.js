@@ -11,7 +11,7 @@ const useTopTracks = () => {
 		if (spotifyAPI.getAccessToken()) {
 			spotifyAPI.getMyTopTracks().then((data) => setTopTracks(data.body.items));
 		}
-	}, [spotifyAPI]);
+	}, [spotifyAPI, setTopTracks]);
 	//console.log(topTracks);
 	return topTracks;
 };

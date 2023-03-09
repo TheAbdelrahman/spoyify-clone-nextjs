@@ -13,7 +13,7 @@ const useReleases = () => {
 				.getNewReleases()
 				.then((data) => setReleases(data.body.albums.items));
 		}
-	}, [spotifyAPI]);
+	}, [spotifyAPI, setReleases]);
 	//console.log(releases);
 	return releases;
 };

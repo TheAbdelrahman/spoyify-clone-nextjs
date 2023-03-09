@@ -13,7 +13,7 @@ const useFollowedArtists = () => {
 				.getFollowedArtists()
 				.then((data) => setFollowedArtists(data.body.artists.items));
 		}
-	}, [spotifyAPI]);
+	}, [spotifyAPI, setFollowedArtists]);
 
 	return followedArtists;
 };

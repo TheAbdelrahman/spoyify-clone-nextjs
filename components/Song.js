@@ -3,26 +3,37 @@ import { useRecoilState } from 'recoil';
 import { currentTrackIdState, isPlayingState } from '../atoms/songAtom';
 import useSpotify from '../hooks/useSpotify';
 import { millisToMinutesAndSeconds } from '../lib/time';
+import useUserPlaylists from '@/hooks/usePlaylists';
 
 export const Song = ({ order, track }) => {
+	const userPlaylists = useUserPlaylists();
+
 	const spotifyAPI = useSpotify();
 	const [currentTrackId, setCurrentTrackId] =
 		useRecoilState(currentTrackIdState);
 	const [isPlaying, setIsPlaying] = useRecoilState(isPlayingState);
 
+	// disabled by spotify
+	const addToPlaylist = (playlistID, trackURi) => {
+		fetch(`https://api.spotify.com/v1/playlists/${playlistID}/${trackURi}`, {
+			method: 'POST',
+			headers: {
+				Authorization: `Bearer ${SpotifyApi.getAccessToken()}`,
+			},
+		});
+		//spotifyAPI.addTracksToPlaylist(playlistID, trackURi);
+	};
+	/*
 	const playSong = () => {
 		setCurrentTrackId(track.track.id);
 		setIsPlaying(true);
 		spotifyAPI.play({
 			uris: [track.track.uri],
 		});
-	};
+	};*/
 
 	return (
-		<div
-			onClick={playSong}
-			className="grid grid-cols-2 text-[#929292] hover:text-white hover:bg-[#1a1b1d] rounded-md mt-5 cursor-pointer"
-		>
+		<div className="grid grid-cols-2 text-[#929292] hover:text-white hover:bg-[#1a1b1d] rounded-md mt-5 cursor-pointer">
 			<div className="flex items-center pl-3 space-x-4 py-1">
 				<p>{order + 1}</p>
 				<img
@@ -42,6 +53,27 @@ export const Song = ({ order, track }) => {
 					{track.track.album.name}
 				</p>
 				<p>{millisToMinutesAndSeconds(track.track.duration_ms)}</p>
+				<select
+					className="bg-transparent ml-5"
+					defaultValue={null}
+					onChange={(e) => addToPlaylist(e.target.value, track.track.uri)}
+				>
+					<option
+						className="py-2 px-4 opacity-80 hover:opacity-90  bg-[#1a1b1d] "
+						disabled
+					>
+						Add To...
+					</option>
+					{userPlaylists?.map((playlist) => (
+						<option
+							className="py-2 px-4 opacity-80 hover:opacity-90 bg-[#1a1b1d] "
+							value={playlist.id}
+							key={playlist.id}
+						>
+							{playlist.name}
+						</option>
+					))}
+				</select>
 			</div>
 		</div>
 	);

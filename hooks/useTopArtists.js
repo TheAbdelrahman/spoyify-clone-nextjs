@@ -13,7 +13,7 @@ const useTopArtists = () => {
 				.getMyTopArtists()
 				.then((data) => setTopArtists(data.body.items));
 		}
-	}, [spotifyAPI]);
+	}, [spotifyAPI, setTopArtists]);
 	//console.log(topArtists);
 
 	return topArtists;

@@ -34,7 +34,7 @@ const Center = () => {
 				setPlaylist(data.body);
 			});
 		}
-	}, [spotifyApi, playlistId]);
+	}, [spotifyApi, setPlaylist, playlistId]);
 
 	useEffect(() => {
 		setColor(shuffle(colors).pop());

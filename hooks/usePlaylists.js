@@ -13,7 +13,7 @@ const useUserPlaylists = () => {
 				.getUserPlaylists()
 				.then((data) => setUserPlaylists(data.body.items));
 		}
-	}, [spotifyAPI]);
+	}, [setUserPlaylists, spotifyAPI]);
 	//console.log(playlists);
 	return userPlaylists;
 };

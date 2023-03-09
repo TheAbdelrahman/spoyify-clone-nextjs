@@ -13,7 +13,7 @@ const useCategories = () => {
 				.getCategories()
 				.then((data) => setCategories(data.body.categories.items));
 		}
-	}, [spotifyAPI]);
+	}, [spotifyAPI, setCategories]);
 	//console.log(categories);
 	return categories;
 };

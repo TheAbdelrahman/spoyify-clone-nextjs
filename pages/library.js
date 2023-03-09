@@ -1,6 +1,5 @@
 /* eslint-disable @next/next/no-img-element */
 
-import { signOut, useSession } from 'next-auth/react';
 import { useEffect, useState } from 'react';
 import useSpotify from '@/hooks/useSpotify';
 import DropList from '../components/DropList';
@@ -11,26 +10,20 @@ import useUserPlaylists from '@/hooks/usePlaylists';
 const Library = () => {
 	const spotifyAPI = useSpotify();
 
-	const { data: session, status } = useSession();
 	const userPlaylists = useUserPlaylists();
 	const [likedTracks, setLikedTracks] = useState([]);
 	const [playlistId, setPlaylistId] = useState([]);
 
-	useEffect(() => {
-		if (spotifyAPI.getAccessToken()) {
-			spotifyAPI.getMySavedTracks().then((data) => {
-				setLikedTracks(data.body.items);
-			});
-		}
-	}, [session, spotifyAPI]);
-
-	console.log(likedTracks);
-
+	if (spotifyAPI.getAccessToken()) {
+		spotifyAPI.getMySavedTracks().then((data) => {
+			setLikedTracks(data.body.items);
+		});
+	}
 	return (
 		<div className="flex max-h-screen w-screen overflow-hidden bg-[#121212] text-white ">
-			<din className="m-w-1/5">
+			<div className="m-w-1/5">
 				<Sidebar />
-			</din>
+			</div>
 
 			<div className="flex-col">
 				<header>
