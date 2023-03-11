@@ -1,4 +1,4 @@
-import { useSession } from 'next-auth/react';
+/*import { useSession } from 'next-auth/react';
 import { useEffect, useState } from 'react';
 import useSpotify from '@/hooks/useSpotify';
 
@@ -18,4 +18,4 @@ const useUserPlaylists = () => {
 	return userPlaylists;
 };
 
-export default useUserPlaylists;
+export default useUserPlaylists;*/

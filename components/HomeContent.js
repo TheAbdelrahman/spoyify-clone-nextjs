@@ -15,7 +15,6 @@ import useRecommendations from '@/hooks/useRecommendations';
 import useSpotify from '@/hooks/useSpotify';
 import { Artist } from './Cards/Artist';
 import Release from './Cards/Release';
-import Featured from './Cards/Featured';
 import Category from './Cards/Category';
 import Recomendations from './Cards/Recomendations';
 
@@ -42,7 +41,7 @@ const HomeContent = () => {
 	}, [session, spotifyAPI]);
 
 	return (
-		<div className="flex-grow h-screen overflow-scroll scrollbar-hide">
+		<div className="flex-grow w-full h-screen overflow-scroll scrollbar-hide">
 			<header className="absolute top-5 right-8">
 				<DropList />
 			</header>
@@ -73,7 +72,6 @@ const HomeContent = () => {
 						))}
 					</div>
 				</div>
-
 				{/**Top Tracks */}
 				<div className="ease-in-out duration-500 hover:bg-[#222222] p-5 mb-4">
 					<h2 className="text-white text-lg pb-3 pl-3">Your Top Tracks</h2>
@@ -83,27 +81,24 @@ const HomeContent = () => {
 						))}
 					</div>
 				</div>
-
 				{/**Recommendations */}
 				<div className="ease-in-out duration-500 hover:bg-[#222222] p-5 mb-4">
 					<h2 className="text-white text-lg pb-3 pl-3">Recommended For You</h2>
-					<div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 place-items-center place-content-center overflow-scroll scrollbar-hide max-h-50 p2 gap-y-5">
+					<div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 place-items-center place-content-space overflow-x-scroll w-max scrollbar-hide h-80 p2">
 						{recommendations?.tracks?.map((item) => (
 							<Recomendations content={item} key={item.id} />
 						))}
 					</div>
 				</div>
-
 				{/**Categories */}
 				<div className="ease-in-out duration-500 hover:bg-[#222222] p-5 mb-4">
 					<h2 className="text-white text-lg pb-3 pl-3">Browse Categories</h2>
-					<div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 place-items-center place-content-center overflow-scroll scrollbar-hide max-h-50 p2 gap-y-5">
+					<div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 place-items-center place-content-center overflow-scroll scrollbar-hide p2 gap-y-5">
 						{categories?.map((catagory) => (
 							<Category content={catagory} key={catagory.id} />
 						))}
 					</div>
 				</div>
-
 				{/**Followed Artists */}
 				<div className="ease-in-out duration-500 hover:bg-[#222222] p-5 mb-4">
 					<h2 className="text-white text-lg pb-3 pl-3">Followed Artists</h2>

@@ -23,7 +23,7 @@ const useRecommendations = () => {
 	useEffect(() => {
 		const fetchInfo = async () => {
 			const trackInfo = await fetch(
-				'https://api.spotify.com/v1/recommendations?limit=10&seed_genres=chill+classical&seed_artists=0jrFMgW018F1XVnLtCXOKi&seed_tracks=3lSOZb5rruEnFbe9xWELF6',
+				'https://api.spotify.com/v1/recommendations?limit=20&seed_genres=chill+classical&seed_artists=0jrFMgW018F1XVnLtCXOKi&seed_tracks=3lSOZb5rruEnFbe9xWELF6',
 				{
 					headers: {
 						Authorization: `Bearer ${spotifyAPI.getAccessToken()}`,

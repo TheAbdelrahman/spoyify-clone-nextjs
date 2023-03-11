@@ -13,7 +13,7 @@ const useGenres = () => {
 				.getAvailableGenreSeeds()
 				.then((data) => setGenres(data.body.genres));
 		}
-	}, [spotifyAPI, setGenres]);
+	}, [spotifyAPI, session]);
 	//console.log(genres);
 
 	return genres;

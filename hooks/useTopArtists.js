@@ -1,11 +1,11 @@
-import { useSession } from 'next-auth/react';
 import { useEffect, useState } from 'react';
 import useSpotify from '@/hooks/useSpotify';
+import { useSession } from 'next-auth/react';
 
 const useTopArtists = () => {
 	const spotifyAPI = useSpotify();
-	const { data: session, status } = useSession();
 	const [topArtists, setTopArtists] = useState([]);
+	const { data: session, status } = useSession();
 
 	useEffect(() => {
 		if (spotifyAPI.getAccessToken()) {
@@ -15,7 +15,6 @@ const useTopArtists = () => {
 		}
 	}, [spotifyAPI, setTopArtists]);
 	//console.log(topArtists);
-
 	return topArtists;
 };
 

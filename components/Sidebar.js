@@ -13,16 +13,21 @@ import { useRecoilState } from 'recoil';
 import { playListIdState } from '@/atoms/playlistAtom';
 import Link from 'next/link';
 import CreateList from './Modals/CreateList';
-import useUserPlaylists from '@/hooks/usePlaylists';
 
 const Sidebar = () => {
 	const spotifyAPI = useSpotify();
 
 	const { data: session, status } = useSession();
 	//const [playlists, setPlaylists] = useState([]);
-	const userPlaylists = useUserPlaylists();
+	const [userPlaylists, setUserPlaylists] = useState([]);
 	const [playlistId, setPlaylistId] = useRecoilState(playListIdState);
-
+	useEffect(() => {
+		if (spotifyAPI.getAccessToken()) {
+			spotifyAPI.getUserPlaylists().then((data) => {
+				setUserPlaylists(data.body.items);
+			});
+		}
+	}, [session, spotifyAPI]);
 	/*useEffect(() => {
 		if (spotifyAPI.getAccessToken()) {
 			spotifyAPI.getUserPlaylists().then((data) => {
@@ -34,7 +39,7 @@ const Sidebar = () => {
 	console.log(playlistId);*/
 
 	return (
-		<div className="flex-col grow p-5 border-r border-gray-900 bg-black h-screen sm:w-[12rem] lg:w-[15rem] min-w-max hidden md:inline-flex scrollbar-hide text-gray-500 text-xs lg:text-base ">
+		<div className="flex-col p-3 border-r border-gray-900 bg-black h-screen sm:max-w-[12rem] lg:min-w-[15rem] hidden md:flex scrollbar-hide text-gray-500 text-xs">
 			<div className="space-y-4">
 				<button className="flex items-center space-x-2 hover:text-white">
 					<HomeIcon className="h-5 w-5" />

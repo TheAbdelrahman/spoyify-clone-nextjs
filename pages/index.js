@@ -5,14 +5,12 @@ import HomeContent from '@/components/HomeContent';
 
 export default function Home() {
 	return (
-		<div className="flex bg-[#121212] w-full h-screen overflow-hidden">
+		<div className="flex w-screen h-screen bg-[#121212] w-screen overflow-hidden">
 			<Sidebar />
 
-			<main className="flex flex-col w-4/5">
-				<div>
-					<HomeContent />
-				</div>
-				<div className="sticky bottom-0 w-full">
+			<main className="flex flex-col w-full">
+				<HomeContent />
+				<div className="sticky bottom-0">
 					<Player />
 				</div>
 			</main>

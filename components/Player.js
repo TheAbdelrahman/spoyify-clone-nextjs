@@ -1,11 +1,12 @@
-/* eslint-disable @next/next/no-img-element */
 import useSpotify from '@/hooks/useSpotify';
 import { useSession } from 'next-auth/react';
 import { currentTrackIdState, isPlayingState } from '@/atoms/songAtom';
 import { useRecoilState } from 'recoil';
-import useSongInfo from '@/hooks/useSongInfo';
-import { useEffect, useState } from 'react';
+import { debounce } from 'lodash';
 
+import useSongInfo from '@/hooks/useSongInfo';
+import { useEffect, useState, useCallback } from 'react';
+import Image from 'next/image';
 import {
 	BackwardIcon,
 	PauseIcon,
@@ -24,33 +25,29 @@ const Player = () => {
 	const [currentTrackId, setCurrentTrackId] =
 		useRecoilState(currentTrackIdState);
 	const [isPlaying, setIsPlaying] = useRecoilState(isPlayingState);
-	const songInfo = useSongInfo(currentTrackId);
-	const [volume, setVolume] = useState(50);
+	const [volume, setVolume] = useState(70);
 
-	const fetchCurrentSong = async () => {
+	const songInfo = useSongInfo(currentTrackId);
+
+	/* {{{Bug Here}}} : spotify only sends id for song not episodes or shows.
+	* modified to get info from last played song 
+	
+	*const fetchCurrentSong = () => {
 		if (!songInfo) {
 			spotifyApi.getMyCurrentPlayingTrack().then((data) => {
 				setCurrentTrackId(data.body?.item?.id);
+				console.log(data.body.item.id);
+
 				spotifyApi.getMyCurrentPlaybackState().then((data) => {
 					setIsPlaying(data.body?.is_playing);
 				});
 			});
 		}
-	};
-
-	useEffect(() => {
-		if (spotifyApi.getAccessToken() && !currentTrackId) {
-			setInterval(fetchCurrentSong(), 300000);
-			setVolume(50);
-		}
-
-		//fetchSongInfo();
-	}, [currentTrackId, spotifyApi, session]);
+	};*/
 
 	const handlePlayPause = () => {
-		spotifyApi.getMyCurrentPlayingTrack().then((data) => {
+		spotifyApi.getMyCurrentPlaybackState().then((data) => {
 			if (data.body?.is_playing) {
-				//todo : remove player with a dsiclaimer 'issue reasons : api refuses' and emplement other playlist options
 				spotifyApi.pause();
 				setIsPlaying(false);
 			} else {
@@ -60,14 +57,56 @@ const Player = () => {
 		});
 	};
 
+	useEffect(() => {
+		if (spotifyApi.getAccessToken() && !currentTrackId) {
+			if (!songInfo) {
+				spotifyApi.getMyCurrentPlayingTrack().then((data) => {
+					setCurrentTrackId(data.body?.item?.id);
+				});
+
+				spotifyApi.getMyCurrentPlaybackState().then((data) => {
+					setIsPlaying(data.body?.is_playing);
+				});
+			}
+			setVolume(70);
+		}
+	}, [
+		setVolume,
+		spotifyApi,
+		songInfo,
+		currentTrackId,
+		setIsPlaying,
+		setCurrentTrackId,
+	]);
+
+	/* premium reqired
+	const debouncedAdjustVolume = useCallback(
+		debounce((volume) => {
+			spotifyApi.setVolume(volume).catch((err) => {
+				console.log(err);
+			});
+		}, 300),
+		[]
+	);
+
+	useEffect(() => {
+		if (volume > 0 && volume < 100) {
+			debouncedAdjustVolume(volume);
+		}
+	}, [volume, debouncedAdjustVolume]);*/
+
 	return (
-		<div className="h-16 bg-[#1a1b1d] text-white grid grid-cols-3 text-sm md:text-base px-2 md:px-8">
+		<div className="h-20 w-screen  bg-[#1a1b1d] text-white grid grid-cols-3 text-sm md:text-base px-2 md:px-8">
 			<div className="flex items-center space-x-4">
-				<img
-					className="md:inline h-12 w-12"
-					src={songInfo?.album.images?.[0].url}
-					alt=""
-				/>
+				<div className="w-12 h-12">
+					<Image
+						width={100}
+						height={100}
+						className="md:inline h-12 w-12"
+						src={songInfo?.album?.images?.[0].url}
+						alt="current track image"
+					/>
+				</div>
 				<div>
 					<h3>{songInfo?.name}</h3>
 					<p className="text-sm text-gray-500">

@@ -1,10 +1,8 @@
-import { useSession } from 'next-auth/react';
 import { useEffect, useState } from 'react';
 import useSpotify from '@/hooks/useSpotify';
 
 const useReleases = () => {
 	const spotifyAPI = useSpotify();
-	const { data: session, status } = useSession();
 	const [releases, setReleases] = useState();
 
 	useEffect(() => {

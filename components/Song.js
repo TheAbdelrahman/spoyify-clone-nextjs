@@ -1,18 +1,24 @@
-/* eslint-disable @next/next/no-img-element */
+import { useEffect, useState } from 'react';
 import { useRecoilState } from 'recoil';
 import { currentTrackIdState, isPlayingState } from '../atoms/songAtom';
 import useSpotify from '../hooks/useSpotify';
 import { millisToMinutesAndSeconds } from '../lib/time';
-import useUserPlaylists from '@/hooks/usePlaylists';
+import { session, useSession } from 'next-auth/react';
 
 export const Song = ({ order, track }) => {
-	const userPlaylists = useUserPlaylists();
+	const [userPlaylists, setUserPlaylists] = useState([]);
 
 	const spotifyAPI = useSpotify();
 	const [currentTrackId, setCurrentTrackId] =
 		useRecoilState(currentTrackIdState);
 	const [isPlaying, setIsPlaying] = useRecoilState(isPlayingState);
-
+	useEffect(() => {
+		if (spotifyAPI.getAccessToken()) {
+			spotifyAPI
+				.getUserPlaylists()
+				.then((data) => setUserPlaylists(data.body.items));
+		}
+	}, [spotifyAPI, session]);
 	// disabled by spotify
 	const addToPlaylist = (playlistID, trackURi) => {
 		fetch(`https://api.spotify.com/v1/playlists/${playlistID}/${trackURi}`, {
@@ -23,6 +29,7 @@ export const Song = ({ order, track }) => {
 		});
 		//spotifyAPI.addTracksToPlaylist(playlistID, trackURi);
 	};
+
 	/*
 	const playSong = () => {
 		setCurrentTrackId(track.track.id);

@@ -14,13 +14,8 @@ const Category = ({ content }) => {
 						className="rounded-md"
 					/>
 				</div>
-				<div className="w-32">
-					<p
-						onClick={() => setPlaylistId(content.id)}
-						className="cursor-pointer text-white truncate"
-					>
-						{content.name}
-					</p>
+				<div className="w-24 text-center">
+					<p className="cursor-pointer text-white truncate">{content.name}</p>
 				</div>
 			</div>
 		</Link>

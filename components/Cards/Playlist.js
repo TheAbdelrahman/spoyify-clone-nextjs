@@ -10,13 +10,20 @@ const Playlist = ({ content, href, onClick }) => {
 			href={href}
 		>
 			<div className="flex-col justify-center items-center p-4  space-y-2">
-				<Image
-					src={content.images[0]?.url}
+				{(content.images)?<Image
+					src={content?.images[0]?.url}
 					alt="Playlist Image"
 					width={128}
 					height={128}
 					className="w-full rounded-md"
 				/>
+				:<Image
+					src={content?.images[0]?.url}
+					alt="Playlist Image"
+					width={128}
+					height={128}
+					className="w-full rounded-md"
+				/>}
 				<div>
 					<p className="cursor-pointer">{content.name}</p>
 					<p className="text-gray-500 text-xs cursor-pointer">

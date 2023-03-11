@@ -1,31 +1,41 @@
-/* eslint-disable @next/next/no-img-element */
-
 import { useEffect, useState } from 'react';
 import useSpotify from '@/hooks/useSpotify';
 import DropList from '../components/DropList';
 import Sidebar from '@/components/Sidebar';
 import Playlist from '@/components/Cards/Playlist';
-import useUserPlaylists from '@/hooks/usePlaylists';
+import { useSession } from 'next-auth/react';
 
 const Library = () => {
 	const spotifyAPI = useSpotify();
+	const { data: session, status } = useSession();
 
-	const userPlaylists = useUserPlaylists();
+	const [userPlaylists, setUserPlaylists] = useState([]);
 	const [likedTracks, setLikedTracks] = useState([]);
 	const [playlistId, setPlaylistId] = useState([]);
 
-	if (spotifyAPI.getAccessToken()) {
-		spotifyAPI.getMySavedTracks().then((data) => {
-			setLikedTracks(data.body.items);
-		});
-	}
+	useEffect(() => {
+		if (spotifyAPI.getAccessToken()) {
+			spotifyAPI
+				.getUserPlaylists()
+				.then((data) => setUserPlaylists(data.body.items));
+		}
+	}, [spotifyAPI, session]);
+
+	useEffect(() => {
+		if (spotifyAPI.getAccessToken()) {
+			spotifyAPI.getMySavedTracks().then((data) => {
+				setLikedTracks(data.body.items);
+			});
+		}
+	}, [session, spotifyAPI]);
+
 	return (
 		<div className="flex max-h-screen w-screen overflow-hidden bg-[#121212] text-white ">
 			<div className="m-w-1/5">
 				<Sidebar />
 			</div>
 
-			<div className="flex-col">
+			<div className="flex-col w-screen">
 				<header>
 					<div className="flex justify-end items-center pr-8 h-20 bg-opacity-30 bg-black w-full">
 						<DropList />
