@@ -54,46 +54,51 @@ const DropList = () => {
 	];
 
 	return (
-		<Menu>
-			<div>
-				<Menu.Button className="flex items-center h-14 w-max ease-in-out duration-500 overflow-hidden bg-black opacity-90 space-x-3 hover:opacity-100 cursor-pointer rounded-full p-1 pr-2 text-white">
-					<Image
-						src={session?.user.image}
-						className="rounded-full"
-						width={40}
-						height={40}
-						alt="user image"
-					/>
-					<h2>{session?.user.name}</h2>
-					<ChevronDownIcon className="-mr-1 ml-2 h-5 w-5" aria-hidden="true" />
-				</Menu.Button>
-			</div>
+		<div className="z-100">
+			<Menu>
+				<div>
+					<Menu.Button className="flex items-center h-14 w-max ease-in-out duration-500 overflow-hidden bg-black opacity-90 space-x-3 hover:opacity-100 cursor-pointer rounded-full p-1 pr-2 text-white">
+						<Image
+							src={session?.user.image}
+							className="rounded-full"
+							width={40}
+							height={40}
+							alt="user image"
+						/>
+						<h2>{session?.user.name}</h2>
+						<ChevronDownIcon
+							className="-mr-1 ml-2 h-5 w-5"
+							aria-hidden="true"
+						/>
+					</Menu.Button>
+				</div>
 
-			<Transition
-				as={Fragment}
-				enter="transition ease-out duration-100"
-				enterFrom="transform opacity-0 scale-95"
-				enterTo="transform opacity-100 scale-100"
-				leave="transition ease-in duration-75"
-				leaveFrom="transform opacity-100 scale-100"
-				leaveTo="transform opacity-0 scale-95"
-			>
-				<Menu.Items className="flex flex-col cursor-pointer z-10 mt-1 text-white">
-					{menuLinks.map((onelink) => (
-						<div
-							key={onelink.id}
-							className="py-2 px-4 opacity-80 hover:opacity-90  bg-black "
-						>
-							<Menu.Item>
-								<a onClick={onelink.onclick} href={onelink.href}>
-									{onelink.title}
-								</a>
-							</Menu.Item>
-						</div>
-					))}
-				</Menu.Items>
-			</Transition>
-		</Menu>
+				<Transition
+					as={Fragment}
+					enter="transition ease-out duration-100"
+					enterFrom="transform opacity-0 scale-95"
+					enterTo="transform opacity-100 scale-100"
+					leave="transition ease-in duration-75"
+					leaveFrom="transform opacity-100 scale-100"
+					leaveTo="transform opacity-0 scale-95"
+				>
+					<Menu.Items className="flex flex-col cursor-pointer z-10 mt-1 text-white">
+						{menuLinks.map((onelink) => (
+							<div
+								key={onelink.id}
+								className="py-2 px-4 opacity-80 hover:opacity-90  bg-black "
+							>
+								<Menu.Item>
+									<a onClick={onelink.onclick} href={onelink.href}>
+										{onelink.title}
+									</a>
+								</Menu.Item>
+							</div>
+						))}
+					</Menu.Items>
+				</Transition>
+			</Menu>
+		</div>
 	);
 };
 

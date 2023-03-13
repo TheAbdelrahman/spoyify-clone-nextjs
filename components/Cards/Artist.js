@@ -4,7 +4,7 @@ import Image from 'next/image';
 export const Artist = ({ content }) => {
 	return (
 		<Link href="/">
-			<div className="flex-col justify-center items-center rounded-lg bg-[#1a1a1a] ease-in-out duration-300 hover:bg-[#292929] p-4 space-y-2 h-full w-max overflow-y-hide">
+			<div className="flex-col justify-center items-center rounded-lg bg-[#1a1a1a] ease-in-out duration-300 hover:bg-[#292929] p-4 space-y-2 h-full w-full overflow-y-hide">
 				<div>
 					<Image
 						src={content.images[0].url}

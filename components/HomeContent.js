@@ -39,8 +39,8 @@ const HomeContent = () => {
 	}, [session, spotifyAPI]);
 
 	return (
-		<div className="flex-grow w-full h-screen overflow-scroll scrollbar-hide">
-			<header className="absolute top-5 right-8">
+		<div className="flex-col relative w-full h-screen overflow-y-scroll scrollbar-hide">
+			<header className="absolute top-5 right-8 z-10">
 				<DropList />
 			</header>
 
@@ -51,7 +51,7 @@ const HomeContent = () => {
 			>
 				<h1 className="text-white text-4xl  mt-24">{massage}</h1>
 			</div>
-			<main className="w-full h-screen pb-60">
+			<main className="absolute h-full w-full pb-60">
 				{/**Releases */}
 				<div className="ease-in-out duration-500 hover:bg-[#222222] p-5 mb-4">
 					<h2 className="text-white text-lg pb-3 pl-3">New Releases</h2>
@@ -82,7 +82,7 @@ const HomeContent = () => {
 				{/**Recommendations */}
 				<div className="ease-in-out duration-500 hover:bg-[#222222] p-5 mb-4">
 					<h2 className="text-white text-lg pb-3 pl-3">Recommended For You</h2>
-					<div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 place-items-center place-content-space overflow-x-scroll w-max scrollbar-hide h-80 p2">
+					<div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 place-items-center place-content-space overflow-x-scroll w-full scrollbar-hide h-80 p2">
 						{recommendations?.tracks?.map((item) => (
 							<Recomendations content={item} key={item.id} />
 						))}

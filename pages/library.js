@@ -31,7 +31,7 @@ const Library = () => {
 
 	return (
 		<div className="flex max-h-screen w-screen overflow-hidden bg-[#121212] text-white ">
-			<div className="m-w-1/5">
+			<div className=" m-w-1/5">
 				<Sidebar />
 			</div>
 
