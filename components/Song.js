@@ -3,32 +3,38 @@ import { useRecoilState } from 'recoil';
 import { currentTrackIdState, isPlayingState } from '../atoms/songAtom';
 import useSpotify from '../hooks/useSpotify';
 import { millisToMinutesAndSeconds } from '../lib/time';
-import { session, useSession } from 'next-auth/react';
+import Image from 'next/image';
+import { useSession } from 'next-auth/react';
 
 export const Song = ({ order, track }) => {
-	const [userPlaylists, setUserPlaylists] = useState([]);
+	//const [userPlaylists, setUserPlaylists] = useState([]);
 
 	const spotifyAPI = useSpotify();
+
+	const [editOptions, setEditOptions] = useState(false);
+
 	const [currentTrackId, setCurrentTrackId] =
 		useRecoilState(currentTrackIdState);
+	//const { data: session, status } = useSession();
+
 	const [isPlaying, setIsPlaying] = useRecoilState(isPlayingState);
-	useEffect(() => {
+
+	/*useEffect(() => {
 		if (spotifyAPI.getAccessToken()) {
-			spotifyAPI
-				.getUserPlaylists()
-				.then((data) => setUserPlaylists(data.body.items));
+			spotifyAPI.getUserPlaylists().then((data) => {
+				setUserPlaylists(data.body.items);
+			});
 		}
-	}, [spotifyAPI, session]);
+	}, [session, spotifyAPI]);*/
 	// disabled by spotify
-	const addToPlaylist = (playlistID, trackURi) => {
+	/*const addToPlaylist = (playlistID, trackURi) => {
 		fetch(`https://api.spotify.com/v1/playlists/${playlistID}/${trackURi}`, {
 			method: 'POST',
 			headers: {
 				Authorization: `Bearer ${SpotifyApi.getAccessToken()}`,
 			},
 		});
-		//spotifyAPI.addTracksToPlaylist(playlistID, trackURi);
-	};
+	};*/
 
 	/*
 	const playSong = () => {
@@ -43,10 +49,11 @@ export const Song = ({ order, track }) => {
 		<div className="grid grid-cols-2 text-[#929292] hover:text-white hover:bg-[#1a1b1d] rounded-md mt-5 cursor-pointer">
 			<div className="flex items-center pl-3 space-x-4 py-1">
 				<p>{order + 1}</p>
-				<img
-					src={track.track.album.images[0].url}
+				<Image
+					width={40}
+					height={40}
+					src={track.track.album.images[0]?.url}
 					alt={track.track.album.name}
-					className="h-10 w-10"
 				/>
 				<div>
 					<p className="w-36 lg:w-[20rem] truncate text-white">
@@ -60,7 +67,7 @@ export const Song = ({ order, track }) => {
 					{track.track.album.name}
 				</p>
 				<p>{millisToMinutesAndSeconds(track.track.duration_ms)}</p>
-				<select
+				{/*<select
 					className="bg-transparent ml-5"
 					defaultValue={null}
 					onChange={(e) => addToPlaylist(e.target.value, track.track.uri)}
@@ -80,7 +87,7 @@ export const Song = ({ order, track }) => {
 							{playlist.name}
 						</option>
 					))}
-				</select>
+					</select>*/}
 			</div>
 		</div>
 	);

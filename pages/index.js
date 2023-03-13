@@ -5,7 +5,7 @@ import HomeContent from '@/components/HomeContent';
 
 export default function Home() {
 	return (
-		<div className="flex w-screen h-screen bg-[#121212] w-screen overflow-hidden">
+		<div className="flex h-screen bg-[#121212] w-full overflow-x-hidden ">
 			<Sidebar />
 
 			<main className="flex flex-col w-full">

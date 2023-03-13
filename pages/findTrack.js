@@ -1,7 +1,6 @@
 import SearchBar from '@/components/SearchBar';
 import Sidebar from '@/components/Sidebar';
 import Player from '@/components/Player';
-import DropList from '@/components/DropList';
 
 const findTrack = () => {
 	return (
@@ -11,9 +10,6 @@ const findTrack = () => {
 			</div>
 			<div className="flex-col w-full">
 				<main className="ml-0 ">
-					<header className="absolute top-5 right-8">
-						<DropList />
-					</header>
 					<section className="flex flex-col">
 						<div className="h-screen">
 							<div>

@@ -45,15 +45,19 @@ const Library = () => {
 					<div className="flex-col grow overflow-scroll scrollbar-hide p-10">
 						<h1 className="mb-5">Playlists</h1>
 
-						<div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-10 place-items-center place-content-center pb-28">
-							<div className="flex-col col-span-2 rounded-lg p-4 bg-gradient-to-br from-[#0d72ea] to-[#3d91f4]  h-full w-full">
-								<p className="text-lg">Liked Songs</p>
-								<p>Liked Songs count : {likedTracks.length}</p>
-
+						<div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-10 place-items-center place-content-center pb-28">
+							<div className="flex-col col-span1 md:col-span-2 rounded-lg p-4 bg-gradient-to-br from-[#0d72ea] to-[#3d91f4]  h-60 overflow-hide w-full">
+								<div className="flex justify-between">
+									<p className="text-lg">Liked Songs</p>
+									<p>count : {likedTracks.length}</p>
+								</div>
 								<div className="h-full w-full">
-									<div className="overflow-scroll scrollbar-hide h-full ">
+									<div className="overflow-scroll scrollbar-hide h-40 ">
 										{likedTracks.map((item) => (
-											<div key={item.track.external_ids.isrc}>
+											<div
+												className="overflow-hide"
+												key={item.track.external_ids.isrc}
+											>
 												<span className="mr-3">{item.track.name} •</span>
 												<span key={item.track.external_ids.isrc}>
 													{item.track.artists[0].name}
@@ -87,7 +91,7 @@ const Library = () => {
 							{userPlaylists?.map((playlist) => (
 								<div key={playlist.id} className="h-full w-full ">
 									<Playlist
-										href={'/viewPlaylist'}
+										href={`/playlist/${playlist.id}`}
 										onClick={() => setPlaylistId(playlist.id)}
 										content={playlist}
 									/>

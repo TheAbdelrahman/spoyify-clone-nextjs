@@ -32,8 +32,6 @@ const HomeContent = () => {
 
 	useEffect(() => {
 		if (spotifyAPI.getAccessToken()) {
-			//spotifyAPI.getMyRecentlyPlayedTracks().then((data) => console.log(data));
-			//spotifyAPI.getUserPlaylists().then((data) => console.log(data));
 			spotifyAPI.getFeaturedPlaylists().then((data) => {
 				setMassage(data.body.message);
 			});

@@ -12,7 +12,7 @@ function useSongInfo() {
 	useEffect(() => {
 		if (spotifyAPI.getAccessToken()) {
 			spotifyAPI.getMyCurrentPlayingTrack().then((data) => {
-				if (data.body.item != null) {
+				if (data.body?.item != null) {
 					setSongInfo(data.body?.item);
 				} else {
 					if (spotifyAPI.getAccessToken()) {

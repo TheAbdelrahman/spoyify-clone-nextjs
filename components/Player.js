@@ -58,28 +58,23 @@ const Player = () => {
 	};
 
 	useEffect(() => {
-		if (spotifyApi.getAccessToken() && !currentTrackId) {
-			if (!songInfo) {
-				spotifyApi.getMyCurrentPlayingTrack().then((data) => {
-					setCurrentTrackId(data.body?.item?.id);
-				});
-
-				spotifyApi.getMyCurrentPlaybackState().then((data) => {
-					setIsPlaying(data.body?.is_playing);
-				});
-			}
-			setVolume(70);
+		if (spotifyApi.getAccessToken()) {
+			spotifyApi.getMyCurrentPlayingTrack().then((data) => {
+				setCurrentTrackId(data.body?.item?.id);
+			});
 		}
-	}, [
-		setVolume,
-		spotifyApi,
-		songInfo,
-		currentTrackId,
-		setIsPlaying,
-		setCurrentTrackId,
-	]);
+	}, [spotifyApi, setCurrentTrackId]);
 
-	/* premium reqired
+	useEffect(() => {
+		if (spotifyApi.getAccessToken()) {
+			spotifyApi.getMyCurrentPlaybackState().then((data) => {
+				setIsPlaying(data.body?.is_playing);
+			});
+		}
+		setVolume(70);
+	}, [spotifyApi, setVolume, setIsPlaying, currentTrackId]);
+
+	/* premium required
 	const debouncedAdjustVolume = useCallback(
 		debounce((volume) => {
 			spotifyApi.setVolume(volume).catch((err) => {
@@ -96,14 +91,14 @@ const Player = () => {
 	}, [volume, debouncedAdjustVolume]);*/
 
 	return (
-		<div className="h-20 w-screen  bg-[#1a1b1d] text-white grid grid-cols-3 text-sm md:text-base px-2 md:px-8">
+		<div className="h-20 w-full bg-[#1a1b1d] text-white grid grid-cols-3 text-sm md:text-base px-2 md:px-8">
 			<div className="flex items-center space-x-4">
-				<div className="w-12 h-12">
+				<div>
 					<Image
-						width={100}
-						height={100}
+						width={48}
+						height={48}
 						className="md:inline h-12 w-12"
-						src={songInfo?.album?.images?.[0].url}
+						src={songInfo?.album?.images[0]?.url}
 						alt="current track image"
 					/>
 				</div>
