@@ -21,7 +21,6 @@ const PlaylistPage = () => {
 	const spotifyApi = useSpotify();
 	const playlistId = id;
 	const [playlist, setPlaylist] = useRecoilState(playlisState);
-	//const [userPlaylists, setUserPlaylists] = useState([]);
 
 	/* edit playlist*/
 	const [editOptions, setEditOptions] = useState(false);

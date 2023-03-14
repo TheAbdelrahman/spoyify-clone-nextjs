@@ -91,7 +91,7 @@ const Library = () => {
 							{userPlaylists?.map((playlist) => (
 								<div key={playlist.id} className="h-full w-full ">
 									<Playlist
-										href={`/playlist/${playlist.id}`}
+										href={`/myPlaylists/${playlist.id}`}
 										onClick={() => setPlaylistId(playlist.id)}
 										content={playlist}
 									/>

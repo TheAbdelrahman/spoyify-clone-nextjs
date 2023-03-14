@@ -67,7 +67,7 @@ const Sidebar = () => {
 			</div>
 			<div className="flex-col overflow-scroll scrollbar-hide">
 				{userPlaylists?.map((playlist) => (
-					<Link key={playlist.id} href={`/playlist/${playlist.id}`}>
+					<Link key={playlist.id} href={`/myPlaylists/${playlist.id}`}>
 						<p
 							onClick={() => setPlaylistId(playlist.id)}
 							className="hover:text-white py-5 cursor-pointer"
