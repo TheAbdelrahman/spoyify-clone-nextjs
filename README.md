@@ -1,16 +1,24 @@
-Note : This project is for educational purposes. it`s still in development state.
+# Spotify Clone
 
-### Features :
+A full functioning Spotify clone usine Nextjs, Tailwind CSS & Spotify web API
 
-- create, read, update, and delete playlists. (there is an issue in the creating playlist feature that i'm working on)
+## Features :
+
+- Search for track and add them to your playlists
 - Get current playing track on other devices
-- Play/pause any track (if you have a premium spotify account)
-- search for any track
-- there are some features that spotify might require a premium account to get access to them.
+- Get New raleases.
+- Recommendations based on your library.
+- Your top Artists.
+- Browse Categories.
+- Browse your library.
+- Read & Update playlists.
+- Play/pause any track (Must have a premium spotify account).
 
-## Getting Started
+- **there are some features that spotify might require a premium account to use.**
 
-First,
+## Wanna try this code ?
+
+### First
 
 - Go to spotify web api webiste and create an app.
 - open app page and add redirect url
@@ -19,30 +27,27 @@ First,
 http://localhost:3000/api/auth/callback/spotify
 ```
 
-- open app setting and get the ID and secret
+- open app settings and get the ID and secret
 
-- update your .env file
+- update them your .env.local file like this
 
-```
+```bash
 NEXTAUTH_URL=http://localhost:3000
-NEXT_PUBLIC_CLIENT_SECRET= get this from spotify
-NEXT_PUBLIC_CLIENT_ID=get this from spotify
-JWT_SECRET= any random secret you write
-NEXTAUTH_SECRET= your next auth secret
-
-
+NEXT_PUBLIC_CLIENT_SECRET= <get this from spotify>
+NEXT_PUBLIC_CLIENT_ID=get <this from spotify>
+JWT_SECRET= <any random secret you write>
+NEXTAUTH_SECRET= <your next auth secret>
 ```
 
-# all set, now open your ide
+### All set ?
 
 open terminal and install packages
 
-```
+```bash
 npm install
-
 ```
 
-or use nvm if you can.
+Or use nvm.
 
 Then, run the development server:
 
@@ -60,6 +65,12 @@ The `pages/api` directory is mapped to `/api/*`. Files in this directory are tre
 
 This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
 
-This isn't a private code. it's open for anyone to clone or leave advice or file an issue.
+## Notes :
 
-Happy coding.
+- This project is for educational purposes.
+- it`s still in development stage and there is always room for improvment
+- This isn't a private code. it's open for anyone to clone or leave advice or file an issue.
+
+**Happy coding**
+
+#### Abdelrahman Abdullah
