@@ -5,7 +5,7 @@ import Image from 'next/image';
 const Recomendations = ({ content }) => {
 	return (
 		<div>
-			<Link href="/">
+			<Link href={`/track/${content.id}`}>
 				<div className="flex-col m-5 justify-center items-center rounded-lg bg-[#1a1a1a] ease-in-out duration-300 hover:bg-[#292929] p-4 space-y-2 h-full w-max overflow-y-hide">
 					<div>
 						<Image

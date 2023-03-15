@@ -4,7 +4,7 @@ import Image from 'next/image';
 
 const Track = ({ content }) => {
 	return (
-		<Link href="/">
+		<Link href={`/track/${content?.id}`}>
 			<div className="flex-col justify-center items-center rounded-lg bg-[#1a1a1a] ease-in-out duration-300 hover:bg-[#292929] p-4 space-y-2 h-full w-max overflow-y-hide">
 				<div>
 					<Image
@@ -16,12 +16,7 @@ const Track = ({ content }) => {
 					/>
 				</div>
 				<div className="w-32">
-					<p
-						onClick={() => setPlaylistId(content.id)}
-						className="cursor-pointer text-white truncate"
-					>
-						{content.name}
-					</p>
+					<p className="cursor-pointer text-white truncate">{content.name}</p>
 					<p className="text-gray-500 text-xs cursor-pointer truncate">
 						{`By ${content.artists[0].name}`}
 					</p>

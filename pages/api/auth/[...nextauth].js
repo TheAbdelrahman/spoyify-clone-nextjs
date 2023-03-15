@@ -2,30 +2,7 @@ import NextAuth from 'next-auth';
 import SpotifyProvider from 'next-auth/providers/spotify';
 import SpotifyAPI, { LOGIN_URL } from '../../../lib/Spotify';
 
-async function refreshAccessToken(token) {
-	try {
-		SpotifyAPI.setAccessToken(token.accessToken);
-		SpotifyAPI.setAccessToken(token.refreshToken);
-
-		const refreshedToken = await SpotifyAPI.refreshAccessToken();
-
-		console.log('Refreshed token is', refreshedToken);
-
-		return {
-			...token,
-			accessToken: refreshedToken.access_token,
-			accessTokenExpires: Date.now() + refreshToken.expires_in * 1000,
-			refreshToken: refreshedToken.refresh_token ?? token.refreshToken,
-		};
-	} catch (error) {
-		console.error(error);
-
-		return {
-			...token,
-			error: 'RefreshAccessTokenError',
-		};
-	}
-}
+//async function refreshAccessToken(token) {}
 
 export default NextAuth({
 	providers: [
@@ -48,19 +25,46 @@ export default NextAuth({
 					accessToken: account.access_token,
 					refreshToken: account.refresh_token,
 					username: account.providerAccountId,
-					accessTokenExpires: account.expires_at * 1000,
+					accessTokenExpires:
+						Math.floor(Date.now()) / 1000 + account.expires_at,
 				};
 			}
 
 			// Return previous token if the access token hasn't expired yet
-			if (Date.now() < token.accessTokenExpires) {
+			else if (Date.now() < token.accessTokenExpires) {
 				console.log('Token is valid ...');
 				return token;
+			} else {
+				try {
+					// Access Token expired, so refresh it...token
+					console.log('Token expired, refreshing...');
+
+					SpotifyAPI.setAccessToken(token.accessToken);
+					SpotifyAPI.setRefreshToken(token.refreshToken);
+
+					const { body: refreshedToken } =
+						await SpotifyAPI.refreshAccessToken();
+
+					console.log('Refreshed token is', refreshedToken);
+
+					return {
+						...token,
+						accessToken: refreshedToken.access_token,
+						accessTokenExpires:
+							Math.floor(Date.now()) / 1000 + refreshedToken.expires_in,
+						refreshToken: refreshedToken.refresh_token ?? token.refreshToken,
+					};
+				} catch (error) {
+					console.error('Error refreshing access token', error);
+
+					return {
+						...token,
+						error: 'RefreshAccessTokenError',
+					};
+				}
 			}
 
-			// Access Token expired, so refresh it...token
-			console.log('Token expired, refreshing...');
-			return await refreshAccessToken(token);
+			//return await refreshAccessToken(token);
 		},
 
 		async session({ session, token }) {

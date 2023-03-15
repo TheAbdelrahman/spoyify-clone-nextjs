@@ -2,9 +2,7 @@ import { useSession } from 'next-auth/react';
 import { useEffect, useState } from 'react';
 import Track from './Cards/Track';
 import DropList from './DropList';
-import Playlist from './Cards/Playlist';
 
-// custom hooks
 import useTopTracks from '../hooks/useTopTracks';
 import useTopArtists from '../hooks/useTopArtists';
 import useReleases from '@/hooks/useReleases';
@@ -40,7 +38,7 @@ const HomeContent = () => {
 
 	return (
 		<div className="flex-col relative w-full h-screen overflow-y-scroll scrollbar-hide">
-			<header className="absolute top-5 right-8 z-10">
+			<header className="absolute top-3 right-5">
 				<DropList />
 			</header>
 
@@ -82,18 +80,9 @@ const HomeContent = () => {
 				{/**Recommendations */}
 				<div className="ease-in-out duration-500 hover:bg-[#222222] p-5 mb-4">
 					<h2 className="text-white text-lg pb-3 pl-3">Recommended For You</h2>
-					<div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 place-items-center place-content-space overflow-x-scroll w-full scrollbar-hide h-80 p2">
+					<div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 place-items-center place-content-space overflow-x-scroll w-full scrollbar-hide h-max p2">
 						{recommendations?.tracks?.map((item) => (
 							<Recomendations content={item} key={item.id} />
-						))}
-					</div>
-				</div>
-				{/**Categories */}
-				<div className="ease-in-out duration-500 hover:bg-[#222222] p-5 mb-4">
-					<h2 className="text-white text-lg pb-3 pl-3">Browse Categories</h2>
-					<div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 place-items-center place-content-center overflow-scroll scrollbar-hide p2 gap-y-5">
-						{categories?.map((catagory) => (
-							<Category content={catagory} key={catagory.id} />
 						))}
 					</div>
 				</div>
@@ -103,6 +92,15 @@ const HomeContent = () => {
 					<div className="flex space-x-2 overflow-scroll scrollbar-hide max-h-50 p2">
 						{followedArtists.map((item) => (
 							<Artist content={item} key={item.id} />
+						))}
+					</div>
+				</div>
+				{/**Categories */}
+				<div className="ease-in-out duration-500 hover:bg-[#222222] p-5 mb-4">
+					<h2 className="text-white text-lg pb-3 pl-3">Browse Categories</h2>
+					<div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 place-items-center place-content-center overflow-scroll scrollbar-hide p2 gap-y-5">
+						{categories?.map((catagory) => (
+							<Category content={catagory} key={catagory.id} />
 						))}
 					</div>
 				</div>

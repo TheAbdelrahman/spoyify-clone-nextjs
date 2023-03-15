@@ -4,6 +4,7 @@ import DropList from '../components/DropList';
 import Sidebar from '@/components/Sidebar';
 import Playlist from '@/components/Cards/Playlist';
 import { useSession } from 'next-auth/react';
+import Link from 'next/link';
 
 const Library = () => {
 	const spotifyAPI = useSpotify();
@@ -54,15 +55,15 @@ const Library = () => {
 								<div className="h-full w-full">
 									<div className="overflow-scroll scrollbar-hide h-40 ">
 										{likedTracks.map((item) => (
-											<div
-												className="overflow-hide"
+											<Link
+												href={`/track/${item.track.id}`}
+												className="overflow-hide text-gray-300 hover:text-white text-xs"
 												key={item.track.external_ids.isrc}
 											>
-												<span className="mr-3">{item.track.name} •</span>
-												<span key={item.track.external_ids.isrc}>
-													{item.track.artists[0].name}
-												</span>
-											</div>
+												<p className="mr-3">
+													{item.track.name} • {item.track.artists[0].name}
+												</p>
+											</Link>
 										))}
 									</div>
 								</div>

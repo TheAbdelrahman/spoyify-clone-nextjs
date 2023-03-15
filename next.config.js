@@ -22,6 +22,18 @@ module.exports = {
 				port: '',
 				pathname: '/**',
 			},
+			{
+				protocol: 'https',
+				hostname: 'thisis-images.scdn.co',
+				port: '',
+				pathname: '/**',
+			},
+			{
+				protocol: 'https',
+				hostname: '**.scdn.co',
+				port: '',
+				pathname: '/**',
+			},
 		],
 	},
 };

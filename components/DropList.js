@@ -3,6 +3,7 @@ import { useSession, signOut } from 'next-auth/react';
 import { Fragment } from 'react';
 import { Menu, Transition } from '@headlessui/react';
 import Image from 'next/image';
+import Link from 'next/link';
 
 const DropList = () => {
 	const { data: session, status } = useSession();
@@ -57,15 +58,17 @@ const DropList = () => {
 		<div className="z-100">
 			<Menu>
 				<div>
-					<Menu.Button className="flex items-center h-14 w-max ease-in-out duration-500 overflow-hidden bg-black opacity-90 space-x-3 hover:opacity-100 cursor-pointer rounded-full p-1 pr-2 text-white">
+					<Menu.Button className="flex items-center h-10 w-40 ease-in-out duration-500 overflow-hidden bg-black opacity-90 space-x-3 hover:opacity-100 cursor-pointer rounded-full p-1 pr-2 text-white">
 						<Image
 							src={session?.user.image}
-							className="rounded-full"
+							className="w-8 h-8 rounded-full"
 							width={40}
 							height={40}
 							alt="user image"
 						/>
-						<h2>{session?.user.name}</h2>
+						<Link className="w-1/2 truncate overflow-hidden" href="/library">
+							{session?.user.name}
+						</Link>
 						<ChevronDownIcon
 							className="-mr-1 ml-2 h-5 w-5"
 							aria-hidden="true"
@@ -86,9 +89,9 @@ const DropList = () => {
 						{menuLinks.map((onelink) => (
 							<div
 								key={onelink.id}
-								className="py-2 px-4 opacity-80 hover:opacity-90  bg-black "
+								className="text-xs py-1 px-4 opacity-80 hover:opacity-90  bg-black "
 							>
-								<Menu.Item>
+								<Menu.Item className="z-50">
 									<a onClick={onelink.onclick} href={onelink.href}>
 										{onelink.title}
 									</a>
