@@ -29,21 +29,7 @@ const Player = () => {
 
 	const songInfo = useSongInfo(currentTrackId);
 
-	/* {{{Bug Here}}} : spotify only sends id for song not episodes or shows.
-	* modified to get info from last played song 
-	
-	*const fetchCurrentSong = () => {
-		if (!songInfo) {
-			spotifyApi.getMyCurrentPlayingTrack().then((data) => {
-				setCurrentTrackId(data.body?.item?.id);
-				console.log(data.body.item.id);
-
-				spotifyApi.getMyCurrentPlaybackState().then((data) => {
-					setIsPlaying(data.body?.is_playing);
-				});
-			});
-		}
-	};*/
+	// {{{Bug Here}}} : spotify only sends id for song not episodes or shows.
 
 	const handlePlayPause = () => {
 		spotifyApi.getMyCurrentPlaybackState().then((data) => {

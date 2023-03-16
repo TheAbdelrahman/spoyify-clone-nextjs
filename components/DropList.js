@@ -11,39 +11,38 @@ const DropList = () => {
 	const menuLinks = [
 		{
 			id: 1,
-			title: 'Account',
-			href: 'https://www.spotify.com/eg-ar/account/overview/?utm_source=spotify&utm_medium=menu&utm_campaign=your_account',
+			title: 'Home',
+			href: '/',
 			onclick: '',
 		},
 		{
 			id: 2,
 			title: 'Profile',
-			href: '/library',
+			href: '/findTrack',
 			onclick: '',
 		},
 		{
 			id: 3,
-
-			title: 'Upgrade To Premium',
-			href: 'https://www.spotify.com/eg-ar/premium/?ref=web_loggedin_upgrade_menu',
+			title: 'Search',
+			href: '/library',
 			onclick: '',
 		},
 		{
 			id: 4,
-			title: 'Download',
-			href: 'https://spotify.com/download',
+			title: 'Saved Tracks',
+			href: '/savedTracks',
 			onclick: '',
 		},
 		{
 			id: 5,
-			title: 'Settings',
-			href: 'https://open.spotify.com/preferences',
+			title: 'Account',
+			href: 'https://www.spotify.com/eg-ar/account/overview/?utm_source=spotify&utm_medium=menu&utm_campaign=your_account',
 			onclick: '',
 		},
 		{
 			id: 6,
-			title: 'Support',
-			href: 'https://support.spotify.com/',
+			title: 'Settings',
+			href: 'https://open.spotify.com/preferences',
 			onclick: '',
 		},
 		{

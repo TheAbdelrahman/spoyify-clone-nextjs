@@ -5,14 +5,16 @@ import Sidebar from '@/components/Sidebar';
 import Playlist from '@/components/Cards/Playlist';
 import { useSession } from 'next-auth/react';
 import Link from 'next/link';
+import useSaved from '@/hooks/useSaved';
+import Player from '@/components/Player';
 
 const Library = () => {
 	const spotifyAPI = useSpotify();
 	const { data: session, status } = useSession();
 
 	const [userPlaylists, setUserPlaylists] = useState([]);
-	const [likedTracks, setLikedTracks] = useState([]);
 	const [playlistId, setPlaylistId] = useState([]);
+	const savedTracks = useSaved();
 
 	useEffect(() => {
 		if (spotifyAPI.getAccessToken()) {
@@ -22,39 +24,31 @@ const Library = () => {
 		}
 	}, [spotifyAPI, session]);
 
-	useEffect(() => {
-		if (spotifyAPI.getAccessToken()) {
-			spotifyAPI.getMySavedTracks().then((data) => {
-				setLikedTracks(data.body.items);
-			});
-		}
-	}, [session, spotifyAPI]);
-
 	return (
-		<div className="flex max-h-screen w-screen overflow-hidden bg-[#121212] text-white ">
-			<div className=" m-w-1/5">
-				<Sidebar />
-			</div>
+		<div className="flex bg-black w-screen h-screen overflow-hidden">
+			<Sidebar />
 
-			<div className="flex-col w-screen">
-				<header>
-					<div className="flex justify-end items-center pr-8 h-20 bg-opacity-30 bg-black w-full">
+			<main className="flex flex-col w-full  ">
+				<div className="flex-grow relative h-screen overflow-scroll text-white bg-[#121212] text-xs lg:text-sm scrollbar-hide">
+					<header className="absolute top-5 right-8">
 						<DropList />
-					</div>
-				</header>
-				<main className="w-full h-screen flex">
+					</header>
+					<section
+						className={`flex items-end bg-gradient-to-b to-[#121212] from-gray-800 h-40 space-x-4 text-white p-8`}
+					></section>
+
 					<div className="flex-col grow overflow-scroll scrollbar-hide p-10">
 						<h1 className="mb-5">Playlists</h1>
 
 						<div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-10 place-items-center place-content-center pb-28">
 							<div className="flex-col col-span1 md:col-span-2 rounded-lg p-4 bg-gradient-to-br from-[#0d72ea] to-[#3d91f4]  h-60 overflow-hide w-full">
 								<div className="flex justify-between">
-									<p className="text-lg">Liked Songs</p>
-									<p>count : {likedTracks.length}</p>
+									<p className="text-lg">Saved Tracks</p>
+									<p>count : {savedTracks.length}</p>
 								</div>
 								<div className="h-full w-full">
 									<div className="overflow-scroll scrollbar-hide h-40 ">
-										{likedTracks.map((item) => (
+										{savedTracks.map((item) => (
 											<Link
 												href={`/track/${item.track.id}`}
 												className="overflow-hide text-gray-300 hover:text-white text-xs"
@@ -68,7 +62,10 @@ const Library = () => {
 									</div>
 								</div>
 							</div>
-							<div className="flex-col justify-center items-center rounded-lg bg-[#1a1a1a] ease-in-out duration-300 hover:bg-[#292929] p-4 space-y-2 h-full w-full">
+							<Link
+								href={'/savedTracks'}
+								className="flex-col justify-center items-center rounded-lg bg-[#1a1a1a] ease-in-out duration-300 hover:bg-[#292929] p-4 space-y-2 h-full w-full"
+							>
 								<div className="bg-[#056952] h-2/3 flex items-center justify-center">
 									<svg
 										xmlns="http://www.w3.org/2000/svg"
@@ -84,24 +81,22 @@ const Library = () => {
 									</svg>
 								</div>
 
-								<p className="cursor-pointer">Your Episodes</p>
-								<p className="text-gray-500 text-xs cursor-pointer">
-									9 Episodes
-								</p>
-							</div>
+								<p className="cursor-pointer">Your Saved Tracks</p>
+							</Link>
 							{userPlaylists?.map((playlist) => (
 								<div key={playlist.id} className="h-full w-full ">
 									<Playlist
 										href={`/myPlaylists/${playlist.id}`}
-										onClick={() => setPlaylistId(playlist.id)}
 										content={playlist}
 									/>
 								</div>
 							))}
 						</div>
 					</div>
-				</main>
-			</div>
+				</div>
+
+				<Player />
+			</main>
 		</div>
 	);
 };

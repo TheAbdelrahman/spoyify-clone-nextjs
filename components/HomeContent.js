@@ -9,6 +9,7 @@ import useReleases from '@/hooks/useReleases';
 import useFollowedArtists from '@/hooks/useFollowed';
 import useCategories from '@/hooks/useCatagories';
 import useRecommendations from '@/hooks/useRecommendations';
+import useSaved from '@/hooks/useSaved';
 
 import useSpotify from '@/hooks/useSpotify';
 import { Artist } from './Cards/Artist';
@@ -25,7 +26,7 @@ const HomeContent = () => {
 	const followedArtists = useFollowedArtists();
 	const categories = useCategories();
 	const recommendations = useRecommendations();
-
+	const savedTracks = useSaved();
 	const [massage, setMassage] = useState(null);
 
 	useEffect(() => {
@@ -74,6 +75,15 @@ const HomeContent = () => {
 					<div className="flex space-x-2 overflow-scroll scrollbar-hide max-h-50 p2">
 						{topTracks?.map((item) => (
 							<Track content={item} key={item.id} />
+						))}
+					</div>
+				</div>
+				{/**Saved Tracks */}
+				<div className="ease-in-out duration-500 hover:bg-[#222222] p-5 mb-4">
+					<h2 className="text-white text-lg pb-3 pl-3">Your Saved Tracks</h2>
+					<div className="flex space-x-2 overflow-scroll scrollbar-hide max-h-50 p2">
+						{savedTracks?.map((item) => (
+							<Track content={item.track} key={item.id} />
 						))}
 					</div>
 				</div>

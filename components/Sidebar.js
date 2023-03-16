@@ -85,7 +85,7 @@ const Sidebar = () => {
 			</div>
 			<div className="space-y-4">
 				<CreateList />
-				<button className="flex items-center space-x-2 hover:text-white">
+				{/*<button className="flex items-center space-x-2 hover:text-white">
 					<svg
 						role="img"
 						height="12"
@@ -99,7 +99,7 @@ const Sidebar = () => {
 						<path d="M15.724 4.22A4.313 4.313 0 0 0 12.192.814a4.269 4.269 0 0 0-3.622 1.13.837.837 0 0 1-1.14 0 4.272 4.272 0 0 0-6.21 5.855l5.916 7.05a1.128 1.128 0 0 0 1.727 0l5.916-7.05a4.228 4.228 0 0 0 .945-3.577z"></path>
 					</svg>
 					<p>Liked Songs</p>
-				</button>
+				</button>*/}
 				<button className="flex items-center space-x-2 hover:text-white">
 					<svg
 						role="img"
@@ -113,7 +113,7 @@ const Sidebar = () => {
 					>
 						<path d="M3.75 0A1.75 1.75 0 0 0 2 1.75v12.952c0 1.051 1.22 1.633 2.037.972l3.962-3.208 3.943 3.204c.817.663 2.038.082 2.038-.97V1.75A1.75 1.75 0 0 0 12.23 0H3.75z"></path>
 					</svg>
-					<p>Your episodes</p>
+					<Link href="/savedTracks">Your Saved Tracks</Link>
 				</button>
 				<hr className=" border-t-[0.1px] border-gray-900 " />
 			</div>

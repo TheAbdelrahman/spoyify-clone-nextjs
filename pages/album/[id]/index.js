@@ -31,7 +31,7 @@ const TrackPage = () => {
 			<Sidebar />
 
 			<main className="flex flex-col w-full  ">
-				<div className="flex-grow h-screen overflow-scroll text-gray-500 bg-[#121212] text-xs lg:text-sm scrollbar-hide">
+				<div className="flex-grow relative h-screen overflow-scroll text-gray-500 bg-[#121212] text-xs lg:text-sm scrollbar-hide">
 					<header className="absolute top-5 right-8">
 						<DropList />
 					</header>
