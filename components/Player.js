@@ -80,13 +80,23 @@ const Player = () => {
 		<div className="h-20 w-full bg-[#1a1b1d] text-white grid grid-cols-3 text-sm md:text-base px-2 md:px-8">
 			<div className="flex items-center space-x-4">
 				<div>
-					<Image
-						width={48}
-						height={48}
-						className="md:inline h-12 w-12"
-						src={songInfo?.album?.images[0]?.url}
-						alt="current track image"
-					/>
+					{songInfo ? (
+						<Image
+							src={songInfo?.album?.images[0]?.url}
+							width={48}
+							height={48}
+							className="md:inline"
+							alt="current track image"
+						/>
+					) : (
+						<Image
+							src="/Spotify_Icon_RGB_Green.png"
+							width={48}
+							height={48}
+							className="md:inline"
+							alt="current track image"
+						/>
+					)}
 				</div>
 				<div>
 					<h3>{songInfo?.name}</h3>

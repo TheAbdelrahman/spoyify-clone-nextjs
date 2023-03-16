@@ -83,7 +83,7 @@ const HomeContent = () => {
 					<h2 className="text-white text-lg pb-3 pl-3">Your Saved Tracks</h2>
 					<div className="flex space-x-2 overflow-scroll scrollbar-hide max-h-50 p2">
 						{savedTracks?.map((item) => (
-							<Track content={item.track} key={item.id} />
+							<Track content={item.track} key={item.track.id} />
 						))}
 					</div>
 				</div>

@@ -13,10 +13,7 @@ const useLiked = () => {
 				.getMySavedTracks()
 				.then((data) => setSavedTracks(data.body.items));
 		}
-		/*return () => {
-			savedTracks;
-		};*/
-	}, [spotifyAPI]);
+	}, [session, spotifyAPI]);
 
 	return savedTracks;
 };

@@ -20,6 +20,9 @@ export async function middleware(req) {
 	if (!token && pathname !== '/login') {
 		return NextResponse.rewrite(
 			new URL('https://spoyify-clone-nextjs.vercel.app/login'),
+			/*Note : change url when working o localhost http://localhost:3000/login
+			 * and change it again to your domain name before deploying
+			 */
 			req.url
 		);
 	}

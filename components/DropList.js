@@ -58,13 +58,23 @@ const DropList = () => {
 			<Menu>
 				<div>
 					<Menu.Button className="flex items-center h-10 w-40 ease-in-out duration-500 overflow-hidden bg-black opacity-90 space-x-3 hover:opacity-100 cursor-pointer rounded-full p-1 pr-2 text-white">
-						<Image
-							src={session?.user.image}
-							className="w-8 h-8 rounded-full"
-							width={40}
-							height={40}
-							alt="user image"
-						/>
+						{session ? (
+							<Image
+								src={session?.user.image}
+								className="w-8 h-8 rounded-full"
+								width={40}
+								height={40}
+								alt="user image"
+							/>
+						) : (
+							<Image
+								src="/Spotify_Icon_RGB_Green.png"
+								className="w-8 h-8 rounded-full"
+								width={40}
+								height={40}
+								alt="user image"
+							/>
+						)}
 						<Link className="w-1/2 truncate overflow-hidden" href="/library">
 							{session?.user.name}
 						</Link>

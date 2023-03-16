@@ -1,8 +1,6 @@
-import { useEffect, useState } from 'react';
 import Sidebar from '@/components/Sidebar';
 import Player from '@/components/Player';
 import DropList from '@/components/DropList';
-import useSpotify from '@/hooks/useSpotify';
 import { Song } from '@/components/Song';
 import { useSession } from 'next-auth/react';
 import Link from 'next/link';
