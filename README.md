@@ -2,6 +2,8 @@
 
 A full functioning Spotify clone usine Nextjs, Tailwind CSS & Spotify web API
 
+[Live Demo](https://spoyify-clone-nextjs.vercel.app/)
+
 ## Features :
 
 - Search for track and add them to your playlists
@@ -57,6 +59,17 @@ npm run dev
 yarn dev
 # or
 pnpm dev
+```
+
+Change the url in middlware.js to http://localhost:3000/login
+
+```
+	if (!token && pathname !== '/login') {
+		return NextResponse.rewrite(
+			new URL('https://spoyify-clone-nextjs.vercel.app/login'),
+			req.url
+		);
+	}
 ```
 
 Open [http://localhost:3000/login](http://localhost:3000/login) with your browser to see the result.
