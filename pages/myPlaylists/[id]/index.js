@@ -9,6 +9,7 @@ import { Song } from '@/components/Song';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import { playListIdState, playlisState } from '@/atoms/playlistAtom';
 import { useSession } from 'next-auth/react';
+import Link from 'next/link';
 
 import { FiMoreVertical } from 'react-icons/fi';
 import { Menu, Transition } from '@headlessui/react';
@@ -162,7 +163,8 @@ const PlaylistPage = () => {
 					{/*<Songs */}
 					<div className="px-6 flex flex-col mt-3 space-y-1 pb-28 text-white">
 						{playlist?.tracks?.items.map((track, i) => (
-							<div
+							<Link
+								href={`/track/${item.track.id}`}
 								className="flex"
 								key={`${track.track.id} ${Math.floor(Math.random())}`}
 							>
@@ -192,7 +194,7 @@ const PlaylistPage = () => {
 								) : (
 									<></>
 								)}
-							</div>
+							</Link>
 						))}
 					</div>
 				</div>

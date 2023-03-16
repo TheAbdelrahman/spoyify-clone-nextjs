@@ -7,6 +7,7 @@ import Image from 'next/image';
 import useSpotify from '@/hooks/useSpotify';
 import { useSession } from 'next-auth/react';
 import { millisToMinutesAndSeconds } from '@/lib/time';
+import Link from 'next/link';
 
 const TrackPage = () => {
 	const router = useRouter();
@@ -59,7 +60,8 @@ const TrackPage = () => {
 					{/*<Songs */}
 					<div className="px-6 flex flex-col mt-3 space-y-1 pb-28 text-white">
 						{release?.tracks?.items.map((track) => (
-							<div
+							<Link
+								href={`/track/${track.id}`}
 								className="flex"
 								key={`${track.id} ${Math.floor(Math.random())}`}
 							>
@@ -105,7 +107,7 @@ const TrackPage = () => {
 					</select>*/}
 									</div>
 								</div>
-							</div>
+							</Link>
 						))}
 					</div>
 				</div>
