@@ -164,7 +164,7 @@ const PlaylistPage = () => {
 					<div className="px-6 flex flex-col mt-3 space-y-1 pb-28 text-white">
 						{playlist?.tracks?.items.map((track, i) => (
 							<Link
-								href={`/track/${item.track.id}`}
+								href={`/track/${track.track.id}`}
 								className="flex"
 								key={`${track.track.id} ${Math.floor(Math.random())}`}
 							>
