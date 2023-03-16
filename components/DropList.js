@@ -17,13 +17,13 @@ const DropList = () => {
 		},
 		{
 			id: 2,
-			title: 'Profile',
+			title: 'Search',
 			href: '/findTrack',
 			onclick: '',
 		},
 		{
 			id: 3,
-			title: 'Search',
+			title: 'Profile',
 			href: '/library',
 			onclick: '',
 		},
